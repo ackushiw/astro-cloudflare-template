@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Button from '../components/ui/Button.astro'
+import Card from '../components/ui/Card.astro'
+import Badge from '../components/ui/Badge.astro'
+import { product, features } from '../content/product'
+
+const title = `${product.name} — ${product.tagline}`
+const description = product.description
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Hero Section -->
+  <section class="py-20 sm:py-32">
+    <div class="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
+      <div class="mb-6 flex justify-center">
+        <Badge>Astro + Cloudflare</Badge>
+      </div>
+      <h1
+        class="text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-6xl dark:text-zinc-100"
+      >
+        {product.name}
+      </h1>
+      <p
+        class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 sm:text-xl dark:text-zinc-300"
+      >
+        {product.description}
+      </p>
+      <div class="mt-10 flex items-center justify-center gap-4">
+        <Button href={product.repositoryUrl || '/#features'} size="lg">
+          Get Started
+        </Button>
+        <Button href="/#features" variant="secondary" size="lg">
+          Learn More
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section
+    id="features"
+    class="border-t border-zinc-200/50 py-16 sm:py-24 dark:border-zinc-800/50"
+  >
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-16 text-center">
+        <h2
+          class="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-100"
+        >
+          Built for Speed & Flexibility
+        </h2>
+        <p class="mt-4 text-base text-zinc-600 dark:text-zinc-400">
+          Everything you need to launch a high-performance website on
+          Cloudflare.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+        {
+          features.map((feature) => (
+            <Card class="flex flex-col justify-between p-6">
+              <div>
+                <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
+                  {feature.title}
+                </h3>
+                <p class="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                  {feature.summary}
+                </p>
+              </div>
+            </Card>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

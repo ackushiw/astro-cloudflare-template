@@ -1,0 +1,10 @@
+{
+  "editor.formatOnSave": true,
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.documentSelectors": ["**/*.astro"],
+  "files.associations": {
+    "wrangler.jsonc": "jsonc"
+  }
+}

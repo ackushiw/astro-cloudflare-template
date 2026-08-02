@@ -1,0 +1,343 @@
+---
+import { siteThemes } from '../../content/theme'
+import { Image } from 'astro:assets'
+---
+
+<div class="relative inline-block">
+  <button
+    id="theme-picker-trigger"
+    class="flex items-center justify-center rounded-full p-2.5 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors focus-visible:outline-2 focus-visible:outline-primary-500 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+    aria-haspopup="dialog"
+    aria-controls="theme-picker-dialog"
+    aria-label="Theme: System. Change theme"
+  >
+    <span class="icon-wrapper" data-mode-icon="light" class="hidden">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+      </svg>
+    </span>
+    <span class="icon-wrapper" data-mode-icon="dark" class="hidden">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+      </svg>
+    </span>
+    <span class="icon-wrapper" data-mode-icon="system" class="hidden">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="20" height="14" x="2" y="3" rx="2"/>
+        <path d="M8 21h8M12 17v4"/>
+      </svg>
+    </span>
+  </button>
+
+  <dialog
+    id="theme-picker-dialog"
+    class="theme-dialog bg-white text-zinc-900 rounded-2xl border border-zinc-200 shadow-2xl p-6 dark:bg-zinc-900 dark:text-zinc-100 dark:border-zinc-800 focus:outline-hidden"
+    aria-labelledby="theme-picker-title"
+  >
+    <div class="flex items-center justify-between border-b border-zinc-100 pb-4 mb-5 dark:border-zinc-800">
+      <h2 id="theme-picker-title" class="text-lg font-semibold tracking-tight">Choose your theme</h2>
+      <button
+        id="theme-picker-close"
+        class="rounded-full p-1.5 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-900 transition-colors focus-visible:outline-2 focus-visible:outline-primary-500 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+        aria-label="Close dialog"
+      >
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <p class="text-xs text-zinc-500 mb-4 dark:text-zinc-400">
+      Select a visual style. Wallpapers and colors will switch together.
+    </p>
+
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      {/* Light Option */}
+      <button
+        type="button"
+        class="theme-option flex flex-col items-stretch rounded-xl border border-zinc-200 bg-zinc-50/50 p-2.5 text-left hover:bg-zinc-100/50 transition-all dark:border-zinc-800 dark:bg-zinc-950/20 dark:hover:bg-zinc-950/50 focus-visible:outline-2 focus-visible:outline-primary-500"
+        data-theme-value="light"
+        aria-pressed="false"
+      >
+        <div class="relative aspect-video w-full overflow-hidden rounded-lg bg-zinc-200 dark:bg-zinc-800 mb-3 select-none pointer-events-none">
+          {siteThemes.light.backgroundImage ? (
+            <Image
+              src={siteThemes.light.backgroundImage}
+              alt=""
+              inferSize={true}
+              class="h-full w-full object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <div class="h-full w-full bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-zinc-800 dark:to-zinc-900" />
+          )}
+          <div class="absolute inset-0 bg-surface-light/20 backdrop-blur-xs" />
+          <div class="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary-600 text-white check-indicator shadow-xs">
+            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6 9 17l-5-5"/>
+            </svg>
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-semibold">Light</span>
+          <div class="flex items-center gap-1.5">
+            <span class="h-4.5 w-4.5 rounded-full border border-black/10 shadow-xs" style={`background-color: ${siteThemes.light.primary}`} title="Hex swatch: Light mode" />
+          </div>
+        </div>
+      </button>
+
+      {/* Dark Option */}
+      <button
+        type="button"
+        class="theme-option flex flex-col items-stretch rounded-xl border border-zinc-200 bg-zinc-50/50 p-2.5 text-left hover:bg-zinc-100/50 transition-all dark:border-zinc-800 dark:bg-zinc-950/20 dark:hover:bg-zinc-950/50 focus-visible:outline-2 focus-visible:outline-primary-500"
+        data-theme-value="dark"
+        aria-pressed="false"
+      >
+        <div class="relative aspect-video w-full overflow-hidden rounded-lg bg-zinc-200 dark:bg-zinc-800 mb-3 select-none pointer-events-none">
+          {siteThemes.dark.backgroundImage ? (
+            <Image
+              src={siteThemes.dark.backgroundImage}
+              alt=""
+              inferSize={true}
+              class="h-full w-full object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <div class="h-full w-full bg-gradient-to-br from-zinc-800 to-zinc-950" />
+          )}
+          <div class="absolute inset-0 bg-surface-dark/20 backdrop-blur-xs" />
+          <div class="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary-600 text-white check-indicator shadow-xs">
+            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6 9 17l-5-5"/>
+            </svg>
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-semibold">Dark</span>
+          <div class="flex items-center gap-1.5">
+            <span class="h-4.5 w-4.5 rounded-full border border-white/10 shadow-xs" style={`background-color: ${siteThemes.dark.primary}`} title="Hex swatch: Dark mode" />
+          </div>
+        </div>
+      </button>
+
+      {/* System Option */}
+      <button
+        type="button"
+        class="theme-option flex flex-col items-stretch rounded-xl border border-zinc-200 bg-zinc-50/50 p-2.5 text-left hover:bg-zinc-100/50 transition-all dark:border-zinc-800 dark:bg-zinc-950/20 dark:hover:bg-zinc-950/50 focus-visible:outline-2 focus-visible:outline-primary-500"
+        data-theme-value="system"
+        aria-pressed="false"
+      >
+        <div class="relative aspect-video w-full overflow-hidden rounded-lg bg-zinc-200 dark:bg-zinc-800 mb-3 select-none pointer-events-none">
+          <div class="grid grid-cols-2 h-full w-full">
+            <div class="relative h-full w-full overflow-hidden">
+              {siteThemes.light.backgroundImage ? (
+                <Image
+                  src={siteThemes.light.backgroundImage}
+                  alt=""
+                  inferSize={true}
+                  class="h-full w-[200%] max-w-none object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="h-full w-full bg-gradient-to-br from-blue-100 to-indigo-100" />
+              )}
+              <div class="absolute inset-0 bg-surface-light/20 backdrop-blur-xs" />
+            </div>
+            <div class="relative h-full w-full overflow-hidden">
+              {siteThemes.dark.backgroundImage ? (
+                <Image
+                  src={siteThemes.dark.backgroundImage}
+                  alt=""
+                  inferSize={true}
+                  class="h-full w-[200%] -translate-x-[50%] max-w-none object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="h-full w-full bg-gradient-to-br from-zinc-800 to-zinc-950" />
+              )}
+              <div class="absolute inset-0 bg-surface-dark/20 backdrop-blur-xs" />
+            </div>
+          </div>
+          <div class="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary-600 text-white check-indicator shadow-xs">
+            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6 9 17l-5-5"/>
+            </svg>
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-semibold">System</span>
+          <div class="flex items-center gap-1">
+            <span class="h-3.5 w-3.5 rounded-full border border-black/10 shadow-xs" style={`background-color: ${siteThemes.light.primary}`} title="System preview: Light mode swatch" />
+            <span class="h-3.5 w-3.5 rounded-full border border-white/10 shadow-xs" style={`background-color: ${siteThemes.dark.primary}`} title="System preview: Dark mode swatch" />
+          </div>
+        </div>
+      </button>
+    </div>
+  </dialog>
+</div>
+
+<script>
+  function initThemePicker() {
+    const trigger = document.getElementById('theme-picker-trigger') as HTMLButtonElement | null
+    const dialog = document.getElementById('theme-picker-dialog') as HTMLDialogElement | null
+    const closeBtn = document.getElementById('theme-picker-close') as HTMLButtonElement | null
+
+    if (!trigger || !dialog) {
+      return
+    }
+
+    const options = dialog.querySelectorAll<HTMLButtonElement>('.theme-option')
+
+    function syncState() {
+      if (!trigger || !window.siteTheme) {
+        return
+      }
+
+      const activeMode = window.siteTheme.getMode()
+      
+      // Update trigger label & icon
+      const modeLabelMap = {
+        light: 'Light',
+        dark: 'Dark',
+        system: 'System'
+      }
+      const label = modeLabelMap[activeMode] || 'System'
+      trigger.setAttribute('aria-label', `Theme: ${label}. Change theme`)
+
+      // Update trigger visual icon wrapper
+      const wrappers = trigger.querySelectorAll<HTMLElement>('.icon-wrapper')
+      wrappers.forEach((w) => {
+        const mode = w.getAttribute('data-mode-icon')
+        if (mode === activeMode) {
+          w.classList.remove('hidden')
+        } else {
+          w.classList.add('hidden')
+        }
+      })
+
+      // Update options
+      options.forEach((opt) => {
+        const themeVal = opt.getAttribute('data-theme-value')
+        const isSelected = themeVal === activeMode
+        opt.setAttribute('aria-pressed', isSelected ? 'true' : 'false')
+        
+        // Style highlights
+        if (isSelected) {
+          opt.classList.add('border-primary-500', 'ring-2', 'ring-primary-500/20')
+          opt.classList.remove('border-zinc-200', 'dark:border-zinc-800')
+          const indicator = opt.querySelector('.check-indicator')
+          if (indicator) {
+            indicator.classList.remove('opacity-0', 'scale-90')
+            indicator.classList.add('opacity-100', 'scale-100')
+          }
+        } else {
+          opt.classList.remove('border-primary-500', 'ring-2', 'ring-primary-500/20')
+          opt.classList.add('border-zinc-200', 'dark:border-zinc-800')
+          const indicator = opt.querySelector('.check-indicator')
+          if (indicator) {
+            indicator.classList.add('opacity-0', 'scale-90')
+            indicator.classList.remove('opacity-100', 'scale-100')
+          }
+        }
+      })
+    }
+
+    // Open dialog
+    trigger.addEventListener('click', () => {
+      dialog.showModal()
+      syncState()
+    })
+
+    // Close on button click
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        dialog.close()
+      })
+    }
+
+    // Close on backdrop click
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) {
+        dialog.close()
+      }
+    })
+
+    // Focus return on close
+    dialog.addEventListener('close', () => {
+      trigger.focus()
+    })
+
+    // Handle option click
+    options.forEach((opt) => {
+      opt.addEventListener('click', () => {
+        const themeVal = opt.getAttribute('data-theme-value')
+        if (themeVal && window.siteTheme) {
+          window.siteTheme.setMode(themeVal as 'light' | 'dark' | 'system')
+          syncState()
+          dialog.close()
+        }
+      })
+    })
+
+    // Listen for changes from outside
+    window.addEventListener('site:theme-change', () => {
+      syncState()
+    })
+
+    // Initial sync
+    syncState()
+  }
+
+  // Support Astro view transitions / lazy scripts
+  initThemePicker()
+  document.addEventListener('astro:page-load', initThemePicker)
+</script>
+
+<style>
+  .theme-dialog {
+    max-width: 500px;
+    width: calc(100% - 2rem);
+    margin: auto;
+    position: fixed;
+    inset: 0;
+  }
+
+  .theme-dialog::backdrop {
+    background-color: rgba(9, 9, 11, 0.4);
+    backdrop-filter: blur(4px);
+    transition: opacity 0.2s ease-out;
+  }
+
+  .theme-option {
+    cursor: pointer;
+  }
+
+  .check-indicator {
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.1s ease-out;
+  }
+
+  /* Mobile bottom sheet behavior */
+  @media (max-width: 640px) {
+    .theme-dialog {
+      max-width: none;
+      width: 100%;
+      margin: auto auto 0 auto;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom: 0;
+      border-left: 0;
+      border-right: 0;
+      animation: slide-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Button from '../components/ui/Button.astro'
+import { product } from '../content/product'
+---
+
+<BaseLayout
+  title={`Page not found — ${product.name}`}
+  description="We couldn't find the page you were looking for."
+  robots="noindex"
+>
+  <section class="mx-auto flex max-w-5xl flex-col items-center px-4 py-24 text-center sm:px-6">
+    <p class="text-sm font-semibold text-primary-600 dark:text-primary-400">404</p>
+    <h1 class="mt-2 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+      Page not found
+    </h1>
+    <p class="mt-4 max-w-md text-zinc-600 dark:text-zinc-400">
+      We couldn't find that page. It may have moved, or the address may have a typo.
+    </p>
+    <div class="mt-8 flex gap-3">
+      <Button href="/">Go home</Button>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "astro-template",
+  "compatibility_date": "2026-07-12",
+  "assets": {
+    "directory": "./dist",
+    // Serve the custom 404 page for unknown routes.
+    "not_found_handling": "404-page",
+    // index.html routes resolve with and without trailing slashes.
+    "html_handling": "auto-trailing-slash",
+  },
+}

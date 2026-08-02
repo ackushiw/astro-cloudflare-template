@@ -1,0 +1,66 @@
+---
+import { siteThemes } from '../../content/theme'
+import { Image } from 'astro:assets'
+
+interface Props {
+  class?: string
+  loading?: 'eager' | 'lazy'
+  applyWallpaperPosition?: boolean
+}
+
+const {
+  class: className = '',
+  loading = 'lazy',
+  applyWallpaperPosition = false,
+} = Astro.props
+
+const hasLightBg = Boolean(siteThemes.light.backgroundImage)
+const hasDarkBg = Boolean(siteThemes.dark.backgroundImage)
+---
+
+{
+  hasLightBg ? (
+    <Image
+      src={siteThemes.light.backgroundImage!}
+      alt=""
+      inferSize={true}
+      class:list={[className, 'dark:hidden']}
+      style={
+        applyWallpaperPosition
+          ? `object-position: ${siteThemes.light.wallpaperPosition}`
+          : undefined
+      }
+      loading={loading}
+    />
+  ) : (
+    <div
+      class:list={[
+        className,
+        'dark:hidden bg-gradient-to-br from-blue-50/50 to-indigo-50/30',
+      ]}
+    />
+  )
+}
+{
+  hasDarkBg ? (
+    <Image
+      src={siteThemes.dark.backgroundImage!}
+      alt=""
+      inferSize={true}
+      class:list={[className, 'hidden dark:block']}
+      style={
+        applyWallpaperPosition
+          ? `object-position: ${siteThemes.dark.wallpaperPosition}`
+          : undefined
+      }
+      loading={loading}
+    />
+  ) : (
+    <div
+      class:list={[
+        className,
+        'hidden dark:block bg-gradient-to-br from-zinc-950/50 to-zinc-900/30',
+      ]}
+    />
+  )
+}

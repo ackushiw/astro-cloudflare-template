@@ -1,0 +1,84 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --theme-primary: var(--theme-primary-light);
+  color-scheme: light;
+}
+:root.dark {
+  --theme-primary: var(--theme-primary-dark);
+  color-scheme: dark;
+}
+
+@theme {
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Fraunces', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+
+  --color-primary-50: color-mix(in oklch, var(--theme-primary) 8%, white);
+  --color-primary-100: color-mix(in oklch, var(--theme-primary) 16%, white);
+  --color-primary-200: color-mix(in oklch, var(--theme-primary) 28%, white);
+  --color-primary-300: color-mix(in oklch, var(--theme-primary) 44%, white);
+  --color-primary-400: color-mix(in oklch, var(--theme-primary) 68%, white);
+  --color-primary-500: var(--theme-primary);
+  --color-primary-600: color-mix(in oklch, var(--theme-primary) 88%, black);
+  --color-primary-700: color-mix(in oklch, var(--theme-primary) 72%, black);
+  --color-primary-800: color-mix(in oklch, var(--theme-primary) 56%, black);
+  --color-primary-900: color-mix(in oklch, var(--theme-primary) 42%, black);
+  --color-primary-950: color-mix(in oklch, var(--theme-primary) 30%, black);
+
+  --color-surface-light: oklch(0.995 0.002 300);
+  --color-surface-dark: oklch(0.205 0.005 300);
+}
+
+@layer utilities {
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Delay variations for staggered reveals */
+  .delay-100 { transition-delay: 100ms; }
+  .delay-200 { transition-delay: 200ms; }
+  .delay-300 { transition-delay: 300ms; }
+}
+
+/* Smooth scrolling for in-page anchors, disabled for reduced motion. */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Visible focus for keyboard users. */
+:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background-color: var(--color-primary-200);
+  color: var(--color-primary-950);
+}
+
+.dark ::selection {
+  background-color: var(--color-primary-800);
+  color: var(--color-primary-50);
+}

@@ -1,0 +1,47 @@
+---
+/**
+ * Minimal button/link primitive in the copy-in component style described by
+ * the site plan (src/components/ui). Renders an anchor when `href` is set.
+ */
+interface Props {
+  href?: string
+  variant?: 'primary' | 'secondary'
+  size?: 'sm' | 'md' | 'lg'
+  class?: string
+  [key: string]: any
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  class: className = '',
+  ...rest
+} = Astro.props
+
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-75 ease-out'
+const variants = {
+  primary:
+    'bg-primary-600 text-white shadow-[inset_0_1px_rgba(255,255,255,0.15),_1px_1px_0_var(--color-primary-800),_1px_1px_3px_color-mix(in_oklch,var(--theme-primary)_20%,transparent)] hover:bg-primary-700 hover:shadow-[inset_0_1px_rgba(255,255,255,0.25),_1px_1px_0_var(--color-primary-800),_1px_2px_6px_color-mix(in_oklch,var(--theme-primary)_30%,transparent)] active:translate-x-px active:translate-y-px active:shadow-[inset_0_1px_2px_rgba(0,0,0,0.15),_0_0px_0px_transparent] dark:bg-primary-400 dark:text-primary-950 dark:shadow-[inset_0_1px_rgba(255,255,255,0.3),_1px_1px_0_var(--color-primary-700),_1px_1px_3px_color-mix(in_oklch,var(--theme-primary)_10%,transparent)] dark:hover:bg-primary-300 dark:hover:shadow-[inset_0_1px_rgba(255,255,255,0.4),_1px_1px_0_var(--color-primary-700),_1px_2px_6px_color-mix(in_oklch,var(--theme-primary)_15%,transparent)] dark:active:shadow-[inset_0_1px_2px_rgba(0,0,0,0.2),_0_0px_0px_transparent]',
+  secondary:
+    'border border-zinc-200/50 bg-white/50 text-zinc-800 shadow-[1px_1px_0_rgba(0,0,0,0.06),_1px_1px_2px_rgba(0,0,0,0.03)] backdrop-blur-md hover:bg-white hover:shadow-[1px_1px_0_rgba(0,0,0,0.06),_1px_2px_4px_rgba(0,0,0,0.04)] active:translate-x-px active:translate-y-px active:shadow-none dark:border-zinc-700/50 dark:bg-zinc-800/50 dark:text-zinc-200 dark:shadow-[1px_1px_0_rgba(0,0,0,0.4)] dark:hover:bg-zinc-800 dark:active:bg-zinc-900',
+}
+const sizes = {
+  sm: 'px-5 py-2 text-sm',
+  md: 'px-6 py-2.5 text-sm',
+  lg: 'px-8 py-3.5 text-base',
+}
+
+const classes = [base, variants[variant], sizes[size], className].join(' ')
+const Tag = href ? 'a' : 'button'
+---
+
+<Tag
+  href={href}
+  class={classes}
+  {...rest}
+>
+  <slot />
+</Tag>
