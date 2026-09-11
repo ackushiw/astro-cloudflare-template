@@ -30,7 +30,12 @@ const socialImage = new URL('/og-image.png', Astro.url.origin)
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap"
       rel="stylesheet"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      `viewport-fit=cover` is what makes `env(safe-area-inset-*)` resolve to
+      anything other than zero. Without it the safe-area padding in the footer
+      is silently inert on every notched phone.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
@@ -127,7 +132,7 @@ const socialImage = new URL('/og-image.png', Astro.url.origin)
         applyWallpaperPosition
       />
     </div>
-    <div class="relative z-10 flex min-h-screen flex-col">
+    <div class="min-h-app relative z-10 flex flex-col">
       <a
         href="#main"
         class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-primary-600 focus:px-4 focus:py-2 focus:text-white"

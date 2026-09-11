@@ -73,6 +73,32 @@ pnpm deploy
 └── wrangler.jsonc       # Cloudflare deployment settings
 ```
 
+## Responsive conventions
+
+A few defaults here exist because the obvious thing is subtly wrong on phones.
+
+- **Full-height layouts use `.min-h-app`, not `min-h-screen`.** `min-h-screen`
+  is `100vh`, and on iOS Safari `vh` is the viewport with the toolbars _hidden_,
+  so a `100vh` layout is taller than the screen and its bottom sits behind the
+  tab bar. `.min-h-app` uses `svh` — the smallest the viewport gets — with a
+  `100vh` fallback. (The fallback is often optimised out of the built CSS when
+  every browser target supports `svh` — that is expected.)
+- **A CSS fallback pair must be one hand-written rule.** Writing
+  `min-h-[100vh] min-h-[100svh]` looks like progressive enhancement but is not:
+  generated utilities are not emitted in the order you write the classes, so the
+  fallback can come last and win. `.min-h-app` in `global.css` is the pattern to
+  copy.
+- **`viewport-fit=cover` is set, and `body` carries the horizontal safe-area
+  insets.** Without `viewport-fit=cover` every `env(safe-area-inset-*)` resolves
+  to `0`, so safe-area padding is inert. Components pinned to the top or bottom
+  edge should add their own vertical inset.
+- **Scale type and spacing with CSS; never with `transform: scale()`.** Scaling
+  a layout to make it fit does not reflow it — the same line breaks just get
+  smaller — and it overrides whatever text size the reader has chosen. Reach for
+  fluid `clamp()` type, responsive spacing, and letting content reflow or
+  scroll. If you do add a fluid type ramp, weight it on `vw`; `vh` weighting
+  only makes sense for full-viewport screens that never scroll.
+
 ## Configuration
 
 - **Site & Product Details:** Update `src/content/product.ts` to customize product info, navigation links, branding, and contact details.
