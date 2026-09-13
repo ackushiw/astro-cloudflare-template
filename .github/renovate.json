@@ -1,0 +1,42 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "schedule": ["before 6am on Monday"],
+  "minimumReleaseAge": "3 days",
+  "osvVulnerabilityAlerts": true,
+  "postUpdateOptions": ["pnpmDedupe"],
+  "vulnerabilityAlerts": {
+    "schedule": ["at any time"],
+    "minimumReleaseAge": null
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on Monday"]
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["nodenv"],
+      "allowedVersions": ">=22.12.0 <23"
+    },
+    {
+      "matchPackageNames": ["astro", "/^@astrojs\\//", "astro-icon", "prettier-plugin-astro"],
+      "groupName": "Astro"
+    },
+    {
+      "matchPackageNames": ["tailwindcss", "/^@tailwindcss\\//"],
+      "groupName": "Tailwind CSS"
+    },
+    {
+      "matchPackageNames": ["wrangler", "/^@cloudflare\\//", "workerd", "miniflare"],
+      "groupName": "Cloudflare"
+    },
+    {
+      "matchPackageNames": ["/^@iconify-json\\//"],
+      "groupName": "Iconify icon sets"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions"
+    }
+  ]
+}
